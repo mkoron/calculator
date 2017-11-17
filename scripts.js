@@ -15,14 +15,9 @@ $('#AC').click(function() {
   $calculate = false;
 });
 $('#CE').click(function() {
-  if ($current === "") {
-    $('#display').text('0')
-  } else {
-    $current = $current.slice(0, -1)
-    $('#display').text($current);
-    $expression = $expression.slice(0, -1)
-  }
-
+  $current = $current.slice(0, -1)
+  $expression = $expression.slice(0, -1)
+  $current.length ? $('#display').text($current) : $('#display').text('0');
 });
 
 $('.number').click(function() {
@@ -52,6 +47,7 @@ $('.operand').click(function() {
     return;
   } else if ($calculate) {
     $expression = round(eval($expression), 6);
+    console.log($expression);
     $('#display').text($expression);
     $expression += operand;
     $current = "";
