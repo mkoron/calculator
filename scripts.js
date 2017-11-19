@@ -7,13 +7,18 @@ function round(value, decimals) {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
 
+function resetAll() {
+  $current = "";
+  $expression = "";
+  $calculate = false;
+}
+ 
 /*Buttons*/
 $('#AC').click(function() {
+  resetAll();
   $('#display').text("0");
-  $expression = "";
-  $current = "";
-  $calculate = false;
 });
+
 $('#CE').click(function() {
   $current = $current.slice(0, -1)
   $expression = $expression.slice(0, -1)
@@ -26,6 +31,7 @@ $('.number').click(function() {
   if ($current.length === $displayChars) {
     return;
   }
+  
   if ($expression === "") {
     $current = number;
     $expression = number;
@@ -56,6 +62,7 @@ $('.operand').click(function() {
     $expression = $expression.slice(0, -1) + operand;
   }
 });
+
 $('#percentage').click(function() {
   if ($calculate) {
     $expression = $expression = round(eval($expression) / 100, 6) + "";
@@ -63,6 +70,7 @@ $('#percentage').click(function() {
     $('#display').text($expression);
   }
 });
+
 $('#dot').click(function() {
   if ($current === "") {
     $current = "0.";
@@ -73,12 +81,11 @@ $('#dot').click(function() {
   }
   $('#display').text($current);
 });
+
 $('#equal').click(function() {
   if ($calculate) {
     $expression = round(eval($expression), 6);
     $('#display').text($expression);
-    $current = "";
-    $expression = "";
-    $calculate = false;
+    resetAll();
   }
 });
